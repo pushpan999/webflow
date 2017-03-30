@@ -1,0 +1,28 @@
+.site-main {
+    //padding:0 .75em;
+
+    .content{
+        &>div {
+            padding: 1.25em;
+        }
+
+        .school-message{
+            background: $color1;
+        }
+        .recent-news {
+             background: $color2;
+        }
+        .imp-dates {
+             background: $color1;
+        }
+        .facilities {
+            background: $color2;
+        }
+        .gallery {
+             background: $color1;
+        }
+       
+    }
+}
+
+

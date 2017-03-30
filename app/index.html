@@ -1,0 +1,176 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+    <meta charset="UTF-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <meta http-equiv="X-UA-Compatible" content="ie=edge">
+    <title>Future Light English High School</title>
+    <!-- build:css css/style.css -->
+    <link rel="stylesheet" href="css/style.css">
+    <!-- endbuild -->
+      
+</head>
+<body>
+<header id="masthead" class="header--site-header" role="banner">
+    <div class="logo">
+        <a href="#" class="logo--link">
+        <span class="logo__svg-logo">
+            <object type="image/svg+xml" data="images/logo.svg">Your browser does not support SVGs</object>
+        </span>
+        <span class="logo__logo-text">
+            Future Light English High School
+        <span>
+        </a>
+    </div>
+<nav class="nav--site-main-nav">
+  <ul class="menu">
+    <li><a href="#0">Home</a></li>
+    <li><a href="#0">About</a></li>
+    <li><a href="#0">Contact</a></li>
+    <li><a href="#0">Dropdown</a></li>
+  </ul>
+  
+  <div class="toggle">
+    <span class="span" id="one"></span>
+    <span class="span" id="two"></span>
+  </div>
+  <div class="toggle-text">Menu</div>
+
+</nav>
+            
+</header>
+<div class="site-banner">
+<div class="main-slider">
+      
+</div>
+<div class="upcoming-events">
+<ul id="js-events-upcoming"></ul>
+<a href="#" class="btn">View Full Calendar</a>
+</div>
+</div>
+<main class="site-main">
+<div class="content">
+<div class="school-message">
+<h2 class="content-header">Message from Chairman</h2>
+<p>Objectively optimize goal-oriented architectures vis-a-vis out-of-the-box platforms. Uniquely underwhelm principle-centered channels without highly efficient mindshare. Proactively transition proactive products with interactive services. Collaboratively visualize effective.</p>
+</div>
+<div class="recent-news">
+<h2>Recent News</h2>
+<ul>
+    <li><a href="#">19th Mangsir 2073- First Term Exam</a></li>
+    <li><a href="#">19th Mangsir 2073- First Term Exam</a></li>
+    <li><a href="#">19th Mangsir 2073- First Term Exam</a></li>
+    <li><a href="#">19th Mangsir 2073- First Term Exam</a></li>
+</ul>
+</div>
+</div>
+<div class="content">
+<div class="imp-dates">
+<h2>Important Dates</h2>
+<ul>
+
+    <li><a href="#">19th Mangsir 2073- First Term Exam</a></li>
+    <li><a href="#">19th Mangsir 2073- First Term Exam</a></li>
+    <li><a href="#">19th Mangsir 2073- First Term Exam</a></li>
+    <li><a href="#">19th Mangsir 2073- First Term Exam</a></li>
+</ul>
+</div>
+<div class="facilities">
+<h2>School Facilities</h2>
+<ul>
+    <li>loprepum ipsum</li>
+    <li>loprepum ipsum</li>
+    <li>loprepum ipsum</li>
+</ul>
+</div>
+</div>
+<div class="content">
+<div class="gallery">
+<ul>
+    <li>
+        <img src="http://placehold.it/100x100">
+    </li>
+    <li>
+        <img src="http://placehold.it/100x100">
+    </li>
+    <li>
+        <img src="http://placehold.it/100x100">
+    </li>
+    <li>
+        <img src="http://placehold.it/100x100">
+    </li>
+    <li>
+        <img src="http://placehold.it/100x100">
+    </li>
+    <li>
+        <img src="http://placehold.it/100x100">
+    </li>
+</ul>
+</div>
+</div>
+
+</main>
+
+
+<h1>This is the index page modified in template again</h1>
+
+<iframe src="https://calendar.google.com/calendar/embed?src=contact.futurelight%40gmail.com&showTitle=0&amp;showPrint=0&amp;showTabs=0&amp;showCalendars=0&amp;showTz=0&amp;height=300&amp;wkst=1&amp;bgcolor=%23FFFFFF&amp;ctz=Asia%2FKatmandu" style="border: 0" width="300" height="250" frameborder="0" scrolling="no"></iframe>
+
+
+
+
+<footer class="footer">
+
+
+
+</footer>
+  <!-- build:js js/vendor.js -->
+    <script src="../bower_components/jquery/dist/jquery.min.js"></script>
+    <!-- endbuild -->
+    <!-- build:js js/app.js -->
+    <script src="js/nav.js"></script>
+     <script src="js/format-google-calendar.js"></script>
+
+    <!-- endbuild -->
+    <!-- Step 3: Call the FormatGoogleCalendar -->
+<script>
+      formatGoogleCalendar.init({
+        calendarUrl: 'https://www.googleapis.com/calendar/v3/calendars/contact.futurelight@gmail.com/events?key=AIzaSyAifmsX3NlcxdZe1Ox2ID_9TZAdpfylQkY',
+        past: false,
+        upcoming: true,
+        sameDayTimes: true,
+        pastTopN: 20,
+        upcomingTopN: 5,
+        recurringEvents: true,
+        itemsTagName: 'li',
+        upcomingSelector: '#js-events-upcoming',
+        pastSelector: '#events-past',
+        upcomingHeading: '<h2>Upcoming Events</h2>',
+        pastHeading: '<h2>Past events</h2>',
+        format: ['*summary*','*date*']
+      });
+    </script>
+
+    <script>
+
+
+
+$(function() {
+
+  $(".toggle").click(function(e) {
+    e.preventDefault();
+    $(".menu").toggleClass("showMenu");
+    if ($(".dropdown").is(":visible")) {
+      $(".dropdown").removeClass("showDropdown");
+    }
+  });
+
+  $(".dropdownStart").click(function(e) {
+    $(".dropdown").toggleClass("showDropdown");
+  });
+});
+
+    </script>
+
+</body>
+</html>
