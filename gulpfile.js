@@ -1,16 +1,16 @@
 /* File: gulpfile.js */
 
 // grab our gulp packages
-var gulp = require('gulp'), // Default task runner
-    plumber = require('gulp-plumber'), // To replace pipe method and remove standard onerror handler on error event, which unpipes streams on error by default.
-    sass = require('gulp-sass'), // Sass compiler
-    csscomb = require('gulp-csscomb'), // Format CSS coding style - Reorder css properties, curly braces positions, spaces etc
-    sourcemaps = require('gulp-sourcemaps'), //Generate Sass Sourcemaps
-    autoprefixer = require('gulp-autoprefixer'), // Auto complete vendor prefix based on caniuse.com
-    size = require('gulp-size'), // Display output css file size after sass task completion
-    notify = require('gulp-notify'), // Plugin to alert sass task result in window
-    browserSync = require("browser-sync").create(), // Plugin to create static server and auto reload browser on html/scss file change
-    gutil = require('gulp-util'), // Plugin to hightlight error line
+var gulp = require('gulp'), 
+    plumber = require('gulp-plumber'), 
+    sass = require('gulp-sass'), 
+    csscomb = require('gulp-csscomb'), 
+    sourcemaps = require('gulp-sourcemaps'), 
+    autoprefixer = require('gulp-autoprefixer'), 
+    size = require('gulp-size'), 
+    notify = require('gulp-notify'), 
+    browserSync = require("browser-sync").create(), 
+    gutil = require('gulp-util'), 
     nunjucksRender = require('gulp-nunjucks-render'),
     zip = require('gulp-zip'),
     usemin = require('gulp-usemin'),
@@ -18,9 +18,9 @@ var gulp = require('gulp'), // Default task runner
     htmlbeautify = require('gulp-html-beautify'),
     uglify = require('gulp-uglify'),
     rev = require('gulp-rev'),
+    bower = require('gulp-bower'),
     del = require('del');
-
-
+//end gulp packages
 var project_path = './app/';
 var rel_project_path = 'app/';
 var template_path = './tpl/';
@@ -36,11 +36,14 @@ var paths = {
     html: project_path + '**/*.html',
     images: project_path + 'images/**/*.+(jpeg|jpg|png|gif|svg)',
     images_path: project_path + 'images',
+    bowerDir: './bower_components',
     sass: project_path + 'scss/**/*.scss',
     css: project_path + 'css/'
-    // compass_scss_dest: project_path + 'scss/settings'
 };
-
+gulp.task('icons', function () {
+    return gulp.src(paths.bowerDir + '/font-awesome-sass/assets/fonts/font-awesome/**.*')
+        .pipe(gulp.dest('./build/fonts'));
+});
 gulp.task('nunjucks', function () {
     // Gets .html and .nunjucks files in pages
     return gulp.src('tpl/pages/**/*.+(html|nunjucks|njk)')
@@ -52,30 +55,30 @@ gulp.task('nunjucks', function () {
         .pipe(gulp.dest(project_path))
 });
 
-gulp.task('build-html', ['build-clean'], function() {
-    
-  return gulp.src(project_path+'/**/*.html')
-    .pipe(usemin({
-      css: [ rev() ],
-      html: [ htmlbeautify() ],
-      js: [ uglify(), rev() ]   
-    }))
-    .pipe(gulp.dest(build_path));
+gulp.task('build-html', ['build-clean'], function () {
+
+    return gulp.src(project_path + '/**/*.html')
+        .pipe(usemin({
+            css: [rev()],
+            html: [htmlbeautify()],
+            js: [uglify(), rev()]
+        }))
+        .pipe(gulp.dest(build_path));
 });
 
-gulp.task('build', ['build-html'], function() {
-  return gulp.src([
-      project_path+'/**/*',
-      '!app/**/*.html', 
-      '!app/*.html', 
-      '!app/**/*.css', 
-      '!app/*.css', 
-      '!app/**/*.js', 
-      '!app/*.js',
-      '!app/css',
-      '!app/js'
-      ])
-    .pipe(gulp.dest(build_path));
+gulp.task('build', ['build-html', 'icons'], function () {
+    return gulp.src([
+        project_path + '/**/*',
+        '!app/**/*.html',
+        '!app/*.html',
+        '!app/**/*.css',
+        '!app/*.css',
+        '!app/**/*.js',
+        '!app/*.js',
+        '!app/css',
+        '!app/js'
+    ])
+        .pipe(gulp.dest(build_path));
 });
 
 var reportSuccess = function (success) {
@@ -118,7 +121,13 @@ gulp.task('sass', function () {
             errorHandler: reportError
         }))
         .pipe(sourcemaps.init())
-        .pipe(sass().on('error', reportError))
+        .pipe(sass({
+            includePaths: [
+                project_path + 'scss',
+                paths.bowerDir + '/bootstrap-sass/assets/stylesheets',
+                paths.bowerDir + '/font-awesome-sass/assets/stylesheets'
+            ]
+        }).on('error', reportError))
         .pipe(sourcemaps.write())
         .pipe(autoprefixer('last 2 versions', '> 5%'))
         .pipe(csscomb())
@@ -139,14 +148,14 @@ gulp.task('build-clean', function () {
     //console.log(cwd);
     return del([build_path], { force: true });
 });
-gulp.task('prod', ['prod-clean', 'sass', 'nunjucks', 'build'], function () {
+gulp.task('prod', ['prod-clean', 'sass', 'icons', 'nunjucks', 'build'], function () {
     return gulp.src(['build/**/*'])
         .pipe(zip('dist.zip'))
         .pipe(gulp.dest(dist_path));
 });
 
 // Static Server + watching scss/html files
-gulp.task('serve', ['sass', 'nunjucks'], function () {
+gulp.task('serve', ['sass','icons', 'nunjucks'], function () {
 
     browserSync.init({
         startPath: project_path,
@@ -157,7 +166,7 @@ gulp.task('serve', ['sass', 'nunjucks'], function () {
     gulp.watch(paths.sass, ['sass']);
     gulp.watch('tpl/**/*.+(html|nunjucks|njk)', ['nunjucks']);
     gulp.watch("app/*.html").on('change', browserSync.reload);
-    
+
 });
 
 gulp.task('default', ['serve']);
