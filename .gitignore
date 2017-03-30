@@ -43,7 +43,8 @@ build
 build/
 build/**/*
 dist
-dist/**/*
+dist/**
+app/css
 app/css/
-app/css/**/*
+app/css/**
 app/css/style.css
