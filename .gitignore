@@ -40,5 +40,10 @@ jspm_packages
 
 #project specific
 build
+build/
+build/**/*
 dist
-app/css
+dist/**/*
+app/css/
+app/css/**/*
+app/css/style.css
